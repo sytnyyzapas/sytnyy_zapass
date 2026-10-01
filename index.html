@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сытный Запас — Эко-полуфабрикаты</title>
+<style>
+:root{--green:#4a7c59;--green-light:#6b9c7a;--dark:#1a1a1a;--dark2:#242424;--dark3:#2e2e2e;--light:#f5f0e8;--gray:#8a8a8a;--yellow:#d4a843;--red:#c94c4c}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--dark);color:var(--light);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* HEADER */
+header{background:var(--dark2);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.5)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:15px 0}
+.logo{font-size:24px;font-weight:800;color:var(--green-light);letter-spacing:1px}
+.header-phone{font-size:16px;font-weight:600}
+.cart-btn{background:var(--green);color:#fff;border:none;padding:10px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.3s}
+.cart-btn:hover{background:var(--green-light);transform:scale(1.05)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a2a1e,#243528);padding:60px 0;text-align:center}
+.hero h1{font-size:38px;margin-bottom:15px;color:var(--light)}
+.hero p{font-size:18px;color:#b0b0b0;max-width:600px;margin:0 auto 25px}
+.btn-primary{background:var(--green);color:#fff;border:none;padding:14px 36px;border-radius:30px;font-size:16px;font-weight:600;cursor:pointer;transition:.3s}
+.btn-primary:hover{background:var(--green-light);transform:scale(1.05)}
+
+/* CATEGORIES */
+.categories{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:25px 0;background:var(--dark2)}
+.cat-btn{background:var(--dark3);color:var(--light);border:1px solid #3a3a3a;padding:8px 18px;border-radius:20px;font-size:14px;cursor:pointer;transition:.3s}
+.cat-btn.active,.cat-btn:hover{background:var(--green);border-color:var(--green);color:#fff}
+
+/* PRODUCTS */
+.products{padding:40px 0}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px}
+.product-card{background:var(--dark2);border-radius:16px;overflow:hidden;border:1px solid #333;transition:.3s}
+.product-card:hover{transform:translateY(-5px);box-shadow:0 10px 40px rgba(74,124,89,.2);border-color:var(--green)}
+.product-img-wrapper{width:100%;height:220px;background:var(--dark3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.product-img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s}
+.product-card:hover .product-img{transform:scale(1.08)}
+.product-img-fallback{color:var(--gray);font-size:13px;text-align:center;padding:10px}
+.eco-badge{position:absolute;top:10px;left:10px;background:var(--green);color:#fff;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:700}
+.product-info{padding:18px}
+.product-info h3{font-size:17px;margin-bottom:8px;color:var(--light)}
+.product-info p{font-size:13px;color:#a0a0a0;margin-bottom:12px;min-height:40px}
+.product-price{font-size:22px;font-weight:800;color:var(--green-light);margin-bottom:12px}
+.product-buttons{display:flex;gap:8px}
+.btn-order{flex:1;background:var(--green);color:#fff;border:none;padding:10px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.3s}
+.btn-order:hover{background:var(--green-light)}
+.btn-recipe{background:transparent;color:var(--green-light);border:1px solid var(--green);padding:10px 16px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.3s}
+.btn-recipe:hover{background:var(--green);color:#fff}
+
+/* DELIVERY */
+.delivery{padding:50px 0;background:var(--dark2)}
+.delivery h2{text-align:center;font-size:30px;margin-bottom:30px;color:var(--light)}
+.delivery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.delivery-card{background:var(--dark3);border-radius:14px;padding:25px;border:1px solid #3a3a3a;transition:.3s}
+.delivery-card:hover{border-color:var(--green);box-shadow:0 5px 30px rgba(74,124,89,.15)}
+.delivery-icon{font-size:32px;margin-bottom:12px}
+.delivery-card h3{font-size:17px;margin-bottom:8px;color:var(--green-light)}
+.delivery-card p{font-size:14px;color:#a0a0a0}
+
+/* FORM */
+.form-section{padding:50px 0}
+.form-section h2{text-align:center;font-size:30px;margin-bottom:30px}
+.form-box{max-width:550px;margin:0 auto;background:var(--dark2);padding:35px;border-radius:16px;border:1px solid #333}
+.form-box label{display:block;margin-bottom:5px;font-size:14px;color:#c0c0c0}
+.form-box input,.form-box select,.form-box textarea{width:100%;background:var(--dark3);border:1px solid #444;color:var(--light);padding:12px;border-radius:8px;font-size:15px;margin-bottom:16px}
+.form-box input:focus,.form-box select:focus,.form-box textarea:focus{outline:none;border-color:var(--green)}
+.form-box textarea{resize:vertical;min-height:80px}
+.form-box button{width:100%;background:var(--green);color:#fff;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;transition:.3s}
+.form-box button:hover{background:var(--green-light)}
+.form-note{text-align:center;font-size:12px;color:var(--gray);margin-top:15px}
+.form-msg{display:none;text-align:center;padding:12px;border-radius:8px;margin-bottom:15px}
+.form-msg.ok{display:block;background:#1e3a1e;color:#6b9c7a}
+.form-msg.err{display:block;background:#3a1e1e;color:var(--red)}
+
+/* REVIEWS */
+.reviews{padding:50px 0;background:var(--dark2)}
+.reviews h2{text-align:center;font-size:30px;margin-bottom:30px}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.review-card{background:var(--dark3);border-radius:14px;padding:25px;border:1px solid #3a3a3a}
+.review-stars{color:var(--yellow);font-size:16px;margin-bottom:10px}
+.review-card h4{font-size:15px;margin-bottom:5px}
+.review-card .city{font-size:12px;color:var(--gray);margin-bottom:10px}
+.review-card p{font-size:14px;color:#b0b0b0}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:200;justify-content:center;align-items:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal{background:var(--dark2);border-radius:16px;max-width:550px;width:100%;max-height:80vh;overflow-y:auto;border:1px solid #444}
+.modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 25px;border-bottom:1px solid #333}
+.modal-header h3{font-size:20px;color:var(--green-light)}
+.modal-close{background:none;border:none;color:var(--gray);font-size:28px;cursor:pointer}
+.modal-body{padding:25px}
+.modal-body h4{color:var(--green-light);margin:15px 0 8px;font-size:16px}
+.modal-body ul{margin-left:20px;margin-bottom:15px}
+.modal-body ul li{margin-bottom:5px;font-size:14px;color:#c0c0c0}
+.modal-body ol{margin-left:20px;margin-bottom:15px}
+.modal-body ol li{margin-bottom:8px;font-size:14px;color:#c0c0c0}
+.modal-chef{background:var(--dark3);border-radius:10px;padding:15px;border-left:3px solid var(--green)}
+.modal-chef strong{color:var(--yellow)}
+
+/* CART */
+.cart-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:200}
+.cart-overlay.active{display:block}
+.cart-panel{position:absolute;top:0;right:0;width:380px;max-width:90vw;height:100%;background:var(--dark2);overflow-y:auto;padding:25px}
+.cart-panel h2{font-size:22px;margin-bottom:20px;color:var(--green-light)}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #333}
+.cart-item-name{font-size:14px}
+.cart-item-price{color:var(--green-light);font-weight:700;font-size:15px}
+.cart-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:18px}
+.cart-total{font-size:20px;font-weight:800;margin:20px 0;text-align:right}
+.cart-empty{text-align:center;color:var(--gray);padding:40px 0}
+.cart-checkout{width:100%;background:var(--green);color:#fff;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer}
+.cart-checkout:hover{background:var(--green-light)}
+
+/* FOOTER */
+footer{background:var(--dark2);padding:30px 0;text-align:center;border-top:1px solid #333}
+footer p{font-size:13px;color:var(--gray);margin-bottom:5px}
+footer .footer-contacts{font-size:14px;margin-bottom:10px}
+footer .footer-contacts a{color:var(--green-light)}
+
+@media(max-width:600px){
+.hero h1{font-size:28px}
+.products-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<header>
+<div class="container header-inner">
+<div class="logo">СытныйЗапас</div>
+<div class="header-phone">+7 (991) 161-56-63</div>
+<button class="cart-btn" onclick="toggleCart()">&#128722; Корзина <span id="cart-count">0</span></button>
+</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+<h1>Эко-полуфабрикаты<br>для осознанного питания</h1>
+<p>Только натуральные ингредиенты, фермерское мясо и шоковая заморозка без консервантов. Сохраняем пользу и вкус.</p>
+<button class="btn-primary" onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">Выбрать продукты</button>
+</div>
+</section>
+
+<!-- CATEGORIES -->
+<div class="categories">
+<div class="container">
+<button class="cat-btn active" data-cat="all">Все</button>
+<button class="cat-btn" data-cat="cutlets">Котлеты и бифштексы</button>
+<button class="cat-btn" data-cat="schnitzel">Шницели и купаты</button>
+<button class="cat-btn" data-cat="dumplings">Пельмени</button>
+<button class="cat-btn" data-cat="syrniki">Сырники</button>
+<button class="cat-btn" data-cat="dishes">Готовые блюда</button>
+<button class="cat-btn" data-cat="dairy">Молочные продукты</button>
+<button class="cat-btn" data-cat="meat">Фарш</button>
+</div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products" id="products-section">
+<div class="container">
+<div class="products-grid" id="products-grid"></div>
+</div>
+</section>
+
+<!-- DELIVERY -->
+<section class="delivery">
+<div class="container">
+<h2>Доставка и оплата</h2>
+<div class="delivery-grid">
+<div class="delivery-card"><div class="delivery-icon">&#128666;</div><h3>Доставка по Москве и МО</h3><p>Доставляем по всей Москве и Московской области.</p></div>
+<div class="delivery-card"><div class="delivery-icon">&#128176;</div><h3>Минимальный заказ</h3><p>Минимальная сумма заказа — 5 000 &#8381;. При заказе от 15 000 &#8381; доставка по Москве бесплатная.</p></div>
+<div class="delivery-card"><div class="delivery-icon">&#10052;</div><h3>Сохранность продуктов</h3><p>Термоконтейнеры с хладагентами — продукты доходят в идеальном состоянии.</p></div>
+<div class="delivery-card"><div class="delivery-icon">&#9201;</div><h3>Сроки доставки</h3><p>1–2 дня. Возможна срочная доставка в день заказа.</p></div>
+<div class="delivery-card"><div class="delivery-icon">&#128179;</div><h3>Способы оплаты</h3><p>Наличными или картой курьеру. Безналичная оплата для юридических лиц.</p></div>
+<div class="delivery-card"><div class="delivery-icon">&#128222;</div><h3>Поддержка клиентов</h3><p>Остались вопросы по доставке? Звоните: +7 (991) 161-56-63</p></div>
+</div>
+</div>
+</section>
+
+<!-- FORM -->
+<section class="form-section">
+<div class="container">
+<h2>Оформить заказ</h2>
+<div class="form-box">
+<div class="form-msg" id="form-msg"></div>
+<form id="order-form" onsubmit="return submitOrder(event)">
+<label>Ваше имя *</label>
+<input type="text" name="name" required placeholder="Как к вам обращаться">
+<label>Телефон *</label>
+<input type="tel" name="phone" required placeholder="+7 (___) ___-__-__">
+<label>Email (необязательно)</label>
+<input type="email" name="email" placeholder="email@example.com">
+<label>Выбор товара</label>
+<select name="product" id="product-select"></select>
+<label>Комментарий к заказу</label>
+<textarea name="comment" placeholder="Укажите количество, адрес доставки и пожелания"></textarea>
+<button type="submit">Отправить заказ</button>
+<p class="form-note">Нажимая «Отправить заказ», вы соглашаетесь с обработкой персональных данных.</p>
+</form>
+</div>
+</div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+<div class="container">
+<h2>Отзывы наших покупателей</h2>
+<div class="reviews-grid" id="reviews-grid"></div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="container">
+<div class="footer-contacts">Телефон: <a href="tel:+79911615663">+7 (991) 161-56-63</a> | Email: <a href="mailto:info@sytnyzapas.ru">info@sytnyzapas.ru</a></div>
+<p>&copy; 2026 Сытный Запас. Все права защищены.</p>
+<p>Эко-полуфабрикаты из фермерского сырья. Шоковая заморозка. Без консервантов.</p>
+</div>
+</footer>
+
+<!-- RECIPE MODAL -->
+<div class="modal-overlay" id="recipe-modal" onclick="if(event.target===this)closeModal()">
+<div class="modal">
+<div class="modal-header">
+<h3 id="modal-title"></h3>
+<button class="modal-close" onclick="closeModal()">&times;</button>
+</div>
+<div class="modal-body" id="modal-body"></div>
+</div>
+</div>
+
+<!-- CART -->
+<div class="cart-overlay" id="cart-overlay" onclick="if(event.target===this)toggleCart()">
+<div class="cart-panel">
+<h2>Корзина</h2>
+<div id="cart-items"></div>
+<div class="cart-total" id="cart-total">Итого: 0 &#8381;</div>
+<button class="cart-checkout" onclick="checkout()">Оформить заказ</button>
+</div>
+</div>
+
+<script>
+const products=[
+{name:"Котлеты «Домашние Гранд»",cat:"cutlets",price:600,desc:"Куриные котлеты ручной лепки из ферм. мяса",img:"cutlet-chicken.jpg",badge:"ЭКО",recipe:{ingr:["Замороженные куриные котлеты «Домашние Гранд» — 4 шт.", "Растительное масло — 2 ст. л.", "Свежая зелень для подачи"],steps:["Замороженные куриные котлеты «Домашние Гранд» — 4 шт.", "Растительное масло — 2 ст. л.", "Свежая зелень для подачи"],tip:"Не кладите котлеты на холодную сковороду — прилипнут. Сковорода должна быть хорошо разогрета."}},
+{name:"Котлеты «Бургер-Брос»",cat:"cutlets",price:650,desc:"Котлеты для бургеров из 100% говядины",img:"cutlet-burger.jpg",recipe:{ingr:["Замороженные котлеты «Бургер-Брос» — 2 шт.", "Булочки для бургера — 2 шт.", "Сыр чеддер — 2 ломтика", "Лист салата, помидор, лук"],steps: ["Разогрейте масло на сковороде на среднем огне.", "Жарьте замороженные котлеты по 6–7 минут с каждой стороны под крышкой.", "Снимите крышку и обжарьте ещё по 1 минуте с каждой стороны для корочки.", "Проверьте готовность — внутри не должно быть розового.", "Подавайте с любимым гарниром."], tip: "Для хрустящей корочки обваляйте замороженные котлеты в муке перед жаркой." }},
+{name:"Котлеты «Чёрный Премиум»",cat:"cutlets",price:720,desc:"Премиальные котлеты из свинины и говядины",img:"cutlet-black-premium.jpg",recipe:{ingr: ["Замороженные котлеты «Чёрный Премиум» — 4 шт.", "Масло для жарки — 2 ст. л.", "Гарнир по вкусу"], steps: ["Разогрейте масло на сковороде на среднем огне.", "Жарьте замороженные котлеты по 6–7 минут с каждой стороны под крышкой.", "Снимите крышку и обжарьте ещё по 1 минуте с каждой стороны для корочки.", "Проверьте готовность — внутри не должно быть розового.", "Подавайте с любимым гарниром."], tip: "Для хрустящей корочки обваляйте замороженные котлеты в муке перед жаркой." }} ,
+{name:"Бифштекс «Стейк-Стайл»",cat:"cutlets",price:700,desc:"Натуральный говяжий бифштекс без добавок",img:"beef-steak.jpg",recipe:{ingr:["Замороженный бифштекс «Стейк-Стайл» — 2 шт.", "Соль, перец по вкусу", "Оливковое масло — 1 ст. л."],steps: ["Достаньте бифштекс из морозилки и оставьте при комнатной температуре на 20–30 минут.", "Разогрейте сковороду до максимума.", "Смажьте бифштекс маслом, посолите.", "Жарьте по 2–3 минуты с каждой стороны для medium-rare.", "Дайте отдохнуть 3–4 минуты перед подачей."], tip: "Для прожарки well-done жарьте по 4–5 минут с каждой стороны под крышкой." }},
+{name:"Шницель «Венский Царь»",cat:"schnitzel",price:680,desc:"Свиной шницель из рубленного мяса в хрустящей панировке",img:"schnitzel-pork.jpg",recipe:{ingr: ["Замороженные шницели «Венский Царь» — 3 шт.", "Масло для жарки — 3 ст. л.", "Лимон, каперсы для подачи"], steps: ["Разогрейте масло на сковороде до шипения.", "Жарьте замороженные шницели по 3–4 минуты с каждой стороны до золотистого цвета.", "Выложите на бумажное полотенце, чтобы убрать излишки масла.", "Подавайте с долькой лимона и каперсами."], tip: "Не перегружайте сковороду — жарьте по одному для хрустящей корочки." }},
+{name:"Купаты «Грузинский Бриз»",cat:"schnitzel",price:620,desc:"Сочные свиные купаты с кавказскими специями",img:"kupaty.jpg",recipe:{ingr:["Купаты — 4 шт","Лук — 1 шт","Гранатовый сок — 50 мл","Зелень кинзы — пучок","Соль — по вкусу"],steps:["Проколите купаты зубочисткой в нескольких местах.","Обжарьте на сковороде по 6–8 минут с каждой стороны.","Подавайте с гранатовым соком и свежей зеленью."],tip:"Прокалывание не даёт оболочке лопнуть при жарке."}},
+{name:"Люля-кебаб «Шашлычный Драйв»",cat:"schnitzel",price:700,desc:"Кебаб из свинины из рубленного мяса с пряными специями",img:"lyulya-kebab.jpg",recipe:{ingr: ["Замороженный люля-кебаб «Шашлычный Драйв» — 4 шт.", "Овощи гриль для гарнира", "Соус томатный или чесночный"], steps: ["Разогрейте гриль или духовку до 220°C.", "Жарьте замороженный люля-кебаб 12–15 минут, переворачивая каждые 3 минуты.", "Смазывайте маслом во время жарки для сочности.", "Подавайте с овощами гриль и соусом."], tip: "Если кебаб на шпажке — замочите шпажки в воде на 10 минут перед жаркой." }},
+{name:"Пельмени «Сибирский Экспресс»",cat:"dumplings",price:650,desc:"Классические пельмени из говядины и свинины",img:"pelmeni-siberian.jpg",recipe:{ingr:["Пельмени — 500 г","Вода — 3 л","Соль — 1 ст.л","Сметана — для подачи","Зелень — для подачи"],steps:["Вскипятите воду, посолите.","Опустите пельмени, аккуратно перемешайте.","Варите 5–7 минут после всплытия.","Подавайте со сметаной и зеленью."],tip:"Не размораживайте пельмени перед варкой — бросайте замороженными."}},
+{name:"Пельмени «Индейка-Лайт»",cat:"dumplings",price:650,desc:"Лёгкие пельмени из мяса индейки",img:"pelmeni-turkey.jpg",recipe:{ingr:["Пельмени из индейки — 500 г","Вода — 3 л","Соль — 1 ст.л","Сливочное масло — 20 г"],steps:["Вскипятите воду, посолите.","Опустите пельмени, варите 5 минут после всплытия.","Достаньте, добавьте сливочное масло, перемешайте."],tip:"Пельмени из индейки особенно нежные — не переварите."}},
+{name:"Пельмени «Двойной Удар»",cat:"dumplings",price:650,desc:"Пельмени с двойной порцией мяса",img:"pelmeni-mix.jpg",recipe:{ingr:["Пельмени — 500 г","Бульон говяжий — 1 л","Зелень — пучок","Сметана — для подачи"],steps:["Вскипятите бульон, посолите.","Опустите пельмени, варите 6–8 минут.","Подавайте в бульоне с зеленью и сметаной."],tip:"Варка в бульоне делает пельмени ароматнее."}},
+{name:"Сырники «Классика-Гранд»",cat:"syrniki",price:600,desc:"Пышные творожные сырники классические",img:"syrniki-classic.jpg",recipe:{ingr:["Сырники — 6 шт","Масло растительное — 3 ст.л","Сметана — для подачи","Варенье — для подачи"],steps:["Разогрейте сковороду с маслом.","Выложите сырники на расстоянии друг от друга.","Жарьте по 3 минуты с каждой стороны на среднем огне.","Подавайте со сметаной или вареньем."],tip:"Не накрывайте крышкой — сырники останутся пышными."}},
+{name:"Сырники «Шоко-Дрим»",cat:"syrniki",price:600,desc:"Шоколадные сырники с какао",img:"syrniki-choco.jpg",recipe:{ingr:["Шоколадные сырники — 6 шт","Масло — 3 ст.л","Шоколадный соус — для подачи"],steps:["Разогрейте сковороду с маслом.","Жарьте сырники по 3 минуты с каждой стороны.","Полейте шоколадным соусом перед подачей."],tip:"Подавайте с шариком ванильного мороженого."}},
+{name:"Сырники «Клюква-Фреш»",cat:"syrniki",price:600,desc:"Сырники с клюквенным джемом",img:"syrniki-cranberry.jpg",recipe:{ingr:["Сырники — 6 шт","Масло — 3 ст.л","Клюквенный джем — для подачи"],steps:["Жарьте сырники на среднем огне по 3 минуты с каждой стороны.","Подавайте тёплыми с клюквенным джемом."],tip:"Клюква отлично дополняет творожный вкус."}},
+{name:"Сырники «Моцарелла-Херб»",cat:"syrniki",price:600,desc:"Сырники с моцареллой и прованскими травами",img:"syrniki-herb.jpg",recipe:{ingr:["Сырники — 6 шт","Масло оливковое — 2 ст.л","Томаты черри — для подачи"],steps:["Жарьте сырники на оливковом масле по 3 минуты с каждой стороны.","Подавайте с томатами черри."],tip:"Моцарелла внутри тянется — подавайте сразу."}},
+{name:"Сырники «Изюм-Бокс»",cat:"syrniki",price:600,desc:"Сырники с изюмом и ванилью",img:"syrniki-raisin.jpg",recipe:{ingr:["Сырники с изюмом — 6 шт","Масло — 3 ст.л","Мёд — для подачи"],steps:["Жарьте по 3 минуты с каждой стороны на среднем огне.","Полейте мёдом перед подачей."],tip:"Изюм внутри придаёт лёгкую сладость."}},
+{name:"Ленивые голубцы «Бабушкин Секрет»",cat:"dishes",price:650,desc:"Голубцы с рисом, фаршем и капустой в томатном соусе",img:"lazy-cabbage.jpg",recipe:{ingr:["Ленивые голубцы — 500 г","Сметана — 200 г","Томатная паста — 2 ст.л","Вода — 100 мл"],steps:["Смешайте сметану с томатной пастой и водой.","Залейте голубцы соусом в форме для запекания.","Запекайте при 180°C 25–30 минут."],tip:"Дайте блюду настояться 10 минут после духовки."}},
+{name:"Тушёнка «Путевой Экспресс»",cat:"dishes",price:320,desc:"Свиная тушёнка премиум-класса в собственном соку",img:"tushenka-beef.jpg",recipe:{ingr:["Тушёнка свиная — 1 банка","Картофель — 4 шт","Лук — 1 шт","Зелень — пучок"],steps:["Отварите картофель до готовности.","Обжарьте лук до золотистости.","Добавьте тушёнку, прогрейте 5 минут.","Подавайте с картофелем и зеленью."],tip:"Тушёнку можно использовать для любого мясного блюда."}},
+{name:"Масло «Сливочная Премия 72.5%»",cat:"dairy",price:1100,desc:"Натуральное сливочное масло из фермерских сливок",img:"butter.jpg",recipe:{ingr:["Масло сливочное — 100 г","Хлеб — 4 ломтика","Мёд или варенье — для подачи"],steps:["Достаньте масло из холодильника за 10 минут до подачи.","Намажьте на свежий хлеб.","Подавайте с мёдом или вареньем."],tip:"Масло лучше всего раскрывает вкус при комнатной температуре."}},
+{name:"Фарш «Фермерский Стандарт»",cat:"meat",price:560,desc:"Домашний фарш из говядины и свинины 50/50",img:"minced-meat.jpg",recipe:{ingr:["Фарш — 500 г","Лук — 1 шт","Соль, перец — по вкусу","Масло — 2 ст.л"],steps:["Разогрейте сковороду с маслом.","Обжарьте мелко рубленый лук.","Добавьте фарш, жарьте 10–12 минут, разбивая комки.","Посолите, поперчите, подавайте с гарниром."],tip:"Фарш можно использовать для любых блюд — от котлет до соусов."}}
+];
+
+const reviews=[
+{name:"Марина",city:"Москва",stars:5,text:"Заказываю уже третий раз! Котлеты сочные, как домашние. Доставка быстрая, всё в идеальном состоянии."},
+{name:"Дмитрий",city:"Подольск",stars:5,text:"Пельмени — лучшие, что пробовал. Чувствуется настоящее мясо, а не магазинный продукт."},
+{name:"Елена",city:"Троицк",stars:4,text:"Сырники очень нежные. Хотела бы больше видов в ассортименте, но то что есть — отличного качества."},
+{name:"Алексей",city:"Чехов",stars:5,text:"Заказываю для всей семьи. Бифштексы — огонь, готовятся за 5 минут. Удобно и вкусно."},
+{name:"Ольга",city:"Мытищи",stars:5,text:"Тушёнка напомнила детство — настоящая, без желирующих добавок. Буду заказывать регулярно."},
+{name:"Сергей",city:"Серпухов",stars:4,text:"Доставка чуть задержалась, но продукты свежие и качественные. Купаты — рекомендую!"}
+];
+
+let cart=[];
+
+// RENDER PRODUCTS
+function renderProducts(filter){
+const grid=document.getElementById('products-grid');
+grid.innerHTML='';
+products.forEach((p,i)=>{
+if(filter!=='all'&&p.cat!==filter)return;
+const card=document.createElement('div');
+card.className='product-card';
+const fallbackId='fb-'+i;
+card.innerHTML=`
+<div class="product-img-wrapper">
+<img src="images/${p.img}" alt="${p.name}" class="product-img" onerror="this.style.display='none';document.getElementById('${fallbackId}').style.display='flex'">
+<div class="product-img-fallback" id="${fallbackId}" style="display:none;flex-direction:column;gap:5px;width:100%;height:100%;align-items:center;justify-content:center">
+<div style="font-size:36px;opacity:.3">&#128247;</div>
+<div>Положите фото:</div>
+<div style="color:var(--green-light);font-weight:700">${p.img}</div>
+</div>
+${p.badge?'<span class="eco-badge">'+p.badge+'</span>':''}
+</div>
+<div class="product-info">
+<h3>${p.name}</h3>
+<p>${p.desc}</p>
+<div class="product-price">${p.price} &#8381;</div>
+<div class="product-buttons">
+<button class="btn-order" onclick="addToCart(${i})">Заказать</button>
+<button class="btn-recipe" onclick="showRecipe(${i})">Рецепт</button>
+</div>
+</div>`;
+grid.appendChild(card);
+});
+}
+
+// RENDER SELECT
+function renderSelect(){
+const sel=document.getElementById('product-select');
+sel.innerHTML='<option value="">Выберите товар</option>';
+products.forEach((p,i)=>{
+sel.innerHTML+=`<option value="${i}">${p.name} — ${p.price} &#8381;</option>`;
+});
+}
+
+// RENDER REVIEWS
+function renderReviews(){
+const grid=document.getElementById('reviews-grid');
+reviews.forEach(r=>{
+const stars='&#9733;'.repeat(r.stars)+'&#9734;'.repeat(5-r.stars);
+grid.innerHTML+=`
+<div class="review-card">
+<div class="review-stars">${stars}</div>
+<h4>${r.name}</h4>
+<div class="city">${r.city}</div>
+<p>${r.text}</p>
+</div>`;
+});
+}
+
+// CATEGORIES
+document.querySelectorAll('.cat-btn').forEach(btn=>{
+btn.addEventListener('click',()=>{
+document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+renderProducts(btn.dataset.cat);
+});
+});
+
+// CART
+function addToCart(i){
+cart.push(i);
+updateCart();
+}
+function removeFromCart(idx){
+cart.splice(idx,1);
+updateCart();
+}
+function updateCart(){
+document.getElementById('cart-count').textContent=cart.length;
+const items=document.getElementById('cart-items');
+items.innerHTML='';
+let total=0;
+if(cart.length===0){
+items.innerHTML='<div class="cart-empty">Корзина пуста</div>';
+}else{
+cart.forEach((idx)=>{
+const p=products[idx];
+total+=p.price;
+items.innerHTML+=`
+<div class="cart-item">
+<div class="cart-item-name">${p.name}</div>
+<div class="cart-item-price">${p.price} &#8381;</div>
+<button class="cart-remove" onclick="removeFromCart(${cart.indexOf(idx)})">&times;</button>
+</div>`;
+});
+}
+document.getElementById('cart-total').innerHTML='Итого: '+total+' &#8381;';
+}
+function toggleCart(){
+document.getElementById('cart-overlay').classList.toggle('active');
+}
+function checkout(){
+toggleCart();
+document.querySelector('.form-section').scrollIntoView({behavior:'smooth'});
+}
+
+// RECIPE MODAL
+function showRecipe(i){
+const p=products[i];
+document.getElementById('modal-title').textContent=p.name;
+let html='<h4>Ингредиенты:</h4><ul>';
+p.recipe.ingr.forEach(ing=>{html+='<li>'+ing+'</li>'});
+html+='</ul><h4>Приготовление:</h4><ol>';
+p.recipe.steps.forEach(s=>{html+='<li>'+s+'</li>'});
+html+='</ol><div class="modal-chef"><strong>Совет повара:</strong> '+p.recipe.tip+'</div>';
+document.getElementById('modal-body').innerHTML=html;
+document.getElementById('recipe-modal').classList.add('active');
+}
+function closeModal(){
+document.getElementById('recipe-modal').classList.remove('active');
+}
+
+// FORM
+function submitOrder(e){
+e.preventDefault();
+const msg=document.getElementById('form-msg');
+msg.className='form-msg ok';
+msg.textContent='✅ Спасибо! Ваш заказ отправлен. Мы перезвоним вам в ближайшее время.';
+e.target.reset();
+return false;
+}
+
+// INIT
+renderProducts('all');
+renderSelect();
+renderReviews();
+</script>
+</body>
+</html>
